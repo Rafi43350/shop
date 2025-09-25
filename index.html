@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Casmart - Biggest Shopping Center</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <style>
+    :root {
+      --primary-color: #e83e8c;
+      --secondary-color: #6f42c1;
+      --dark-color: #343a40;
+      --light-color: #f8f9fa;
+      --success-color: #28a745;
+      --warning-color: #ffc107;
+      --danger-color: #dc3545;
+      --gray-color: #6c757d;
+      --transition: all 0.3s ease;
+    }
+    
+    body {
+      font-family: 'Jost', sans-serif;
+      color: var(--dark-color);
+      overflow-x: hidden;
+    }
+    
+    /* Header Styles */
+    .navbar-brand img {
+      height: 40px;
+    }
+    
+    .nav-link {
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    
+    .nav-link:hover {
+      color: var(--primary-color) !important;
+    }
+    
+    .header-actions .btn {
+      position: relative;
+      margin-left: 10px;
+    }
+    
+    .btn-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      font-size: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .btn-badge.green {
+      background: var(--success-color);
+    }
+    
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+      background-size: cover;
+      background-position: center;
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      color: white;
+    }
+    
+    .hero-content {
+      max-width: 600px;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    
+    /* Service Section */
+    .service-section {
+      padding: 80px 0;
+    }
+    
+    .service-item {
+      text-align: center;
+      padding: 30px 15px;
+      transition: var(--transition);
+    }
+    
+    .service-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+    
+    .service-icon {
+      font-size: 3rem;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+    
+    .service-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    
+    /* Category Section */
+    .category-section {
+      padding: 80px 0;
+      background-color: #f8f9fa;
+    }
+    
+    .category-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      height: 300px;
+    }
+    
+    .category-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    
+    .category-card:hover .category-img {
+      transform: scale(1.1);
+    }
+    
+    .category-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    /* Product Section */
+    .product-section {
+      padding: 80px 0;
+    }
+    
+    .section-title {
+      font-weight: 700;
+      margin-bottom: 40px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--primary-color);
+    }
+    
+    .filter-btn {
+      background: transparent;
+      border: none;
+      padding: 8px 20px;
+      margin: 0 5px;
+      border-radius: 30px;
+      transition: var(--transition);
+    }
+    
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--primary-color);
+      color: white;
+    }
+    
+    .product-card {
+      border: none;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: var(--transition);
+      margin-bottom: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+    
+    .product-img {
+      height: 250px;
+      object-fit: cover;
+    }
+    
+    .product-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: white;
+      font-size: 0.8rem;
+    }
+    
+    .badge-red {
+      background: var(--danger-color);
+    }
+    
+    .badge-green {
+      background: var(--success-color);
+    }
+    
+    .product-actions {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      opacity: 0;
+      transition: var(--transition);
+    }
+    
+    .product-card:hover .product-actions {
+      opacity: 1;
+    }
+    
+    .action-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: white;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      transition: var(--transition);
+    }
+    
+    .action-btn:hover {
+      background: var(--primary-color);
+      color: white;
+    }
+    
+    .product-price {
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+    
+    .old-price {
+      text-decoration: line-through;
+      color: var(--gray-color);
+      margin-left: 10px;
+      font-size: 0.9rem;
+    }
+    
+    /* Blog Section */
+    .blog-section {
+      padding: 80px 0;
+      background-color: #f8f9fa;
+    }
+    
+    .blog-card {
+      border: none;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: var(--transition);
+      margin-bottom: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    .blog-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+    
+    .blog-img {
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .blog-meta {
+      font-size: 0.9rem;
+      color: var(--gray-color);
+    }
+    
+    .blog-meta i {
+      margin-right: 5px;
+    }
+    
+    .blog-title {
+      font-weight: 600;
+      margin-top: 10px;
+      transition: var(--transition);
+    }
+    
+    .blog-title:hover {
+      color: var(--primary-color);
+    }
+    
+    /* Newsletter Section */
+    .newsletter-section {
+      padding: 80px 0;
+      background: linear-gradient(rgba(232, 62, 140, 0.9), rgba(111, 66, 193, 0.9)), url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+      background-size: cover;
+      background-position: center;
+      color: white;
+    }
+    
+    .newsletter-form {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    .newsletter-input {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      border-radius: 30px;
+      padding: 15px 20px;
+      color: white;
+      margin-bottom: 20px;
+    }
+    
+    .newsletter-input::placeholder {
+      color: rgba(255,255,255,0.7);
+    }
+    
+    /* Footer */
+    .footer {
+      background: var(--dark-color);
+      color: white;
+      padding-top: 60px;
+    }
+    
+    .footer-title {
+      font-weight: 600;
+      margin-bottom: 20px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .footer-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 30px;
+      height: 2px;
+      background: var(--primary-color);
+    }
+    
+    .footer-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 10px;
+      transition: var(--transition);
+    }
+    
+    .footer-links a:hover {
+      color: var(--primary-color);
+      padding-left: 5px;
+    }
+    
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      margin-right: 10px;
+      transition: var(--transition);
+    }
+    
+    .social-links a:hover {
+      background: var(--primary-color);
+      transform: translateY(-5px);
+    }
+    
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 20px 0;
+      margin-top: 40px;
+    }
+    
+    .payment-img {
+      height: 30px;
+    }
+    
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .fade-in-up {
+      animation: fadeInUp 0.8s ease forwards;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .hero-section {
+        height: 60vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img src="https://via.placeholder.com/130x31/6f42c1/ffffff?text=Casmart" alt="Casmart Logo">
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Shop</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+          
+          <div class="header-actions d-flex align-items-center">
+            <button class="btn btn-link text-dark position-relative">
+              <i class="fas fa-user"></i>
+              <span class="d-none d-md-inline ms-1">Sign in</span>
+            </button>
+            
+            <button class="btn btn-link text-dark position-relative d-md-none">
+              <i class="fas fa-search"></i>
+            </button>
+            
+            <button class="btn btn-link text-dark position-relative">
+              <i class="fas fa-shopping-cart"></i>
+              <span class="d-none d-md-inline ms-1">Cart</span>
+              <span class="btn-badge">3</span>
+            </button>
+            
+            <button class="btn btn-link text-dark position-relative">
+              <i class="fas fa-heart"></i>
+              <span class="d-none d-md-inline ms-1">Wishlist</span>
+              <span class="btn-badge green">2</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content fade-in-up">
+        <p class="hero-subtitle">Fashion Everyday</p>
+        <h1 class="hero-title">Unrivalled Fashion House</h1>
+        <button class="btn btn-primary btn-lg">Shop Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Section -->
+  <section class="service-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-sm-6">
+          <div class="service-item">
+            <div class="service-icon">
+              <i class="fas fa-shipping-fast"></i>
+            </div>
+            <h4 class="service-title">Free Shipping</h4>
+            <p>On All Order Over $599</p>
+          </div>
+        </div>
+        
+        <div class="col-md-3 col-sm-6">
+          <div class="service-item">
+            <div class="service-icon">
+              <i class="fas fa-undo-alt"></i>
+            </div>
+            <h4 class="service-title">Easy Returns</h4>
+            <p>30 Day Returns Policy</p>
+          </div>
+        </div>
+        
+        <div class="col-md-3 col-sm-6">
+          <div class="service-item">
+            <div class="service-icon">
+              <i class="fas fa-lock"></i>
+            </div>
+            <h4 class="service-title">Secure Payment</h4>
+            <p>100% Secure Guarantee</p>
+          </div>
+        </div>
+        
+        <div class="col-md-3 col-sm-6">
+          <div class="service-item">
+            <div class="service-icon">
+              <i class="fas fa-headset"></i>
+            </div>
+            <h4 class="service-title">Special Support</h4>
+            <p>24/7 Dedicated Support</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Section -->
+  <section class="category-section">
+    <div class="container">
+      <h2 class="text-center section-title">Shop By Category</h2>
+      
+      <div class="row">
+        <div class="col-lg-4 col-md-6">
+          <div class="category-card">
+            <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80" alt="Sunglass & Eye" class="category-img">
+            <div class="category-overlay">
+              <h4>Sunglass & Eye</h4>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6">
+          <div class="category-card">
+            <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Active & Outdoor" class="category-img">
+            <div class="category-overlay">
+              <h4>Active & Outdoor</h4>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6">
+          <div class="category-card">
+            <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Winter Wear" class="category-img">
+            <div class="category-overlay">
+              <h4>Winter Wear</h4>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6">
+          <div class="category-card">
+            <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80" alt="Exclusive Footwear" class="category-img">
+            <div class="category-overlay">
+              <h4>Exclusive Footwear</h4>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6">
+          <div class="category-card">
+            <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Jewelry" class="category-img">
+            <div class="category-overlay">
+              <h4>Jewelry</h4>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6">
+          <div class="category-card">
+            <img src="https://images.unsplash.com/photo-1521369909029-2afed882baee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Sports Cap" class="category-img">
+            <div class="category-overlay">
+              <h4>Sports Cap</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Section -->
+  <section class="product-section">
+    <div class="container">
+      <h2 class="text-center section-title">Products of the Week</h2>
+      
+      <div class="text-center mb-5">
+        <button class="filter-btn active">Best Seller</button>
+        <button class="filter-btn">Hot Collection</button>
+        <button class="filter-btn">Trendy</button>
+        <button class="filter-btn">New Arrival</button>
+      </div>
+      
+      <div class="row">
+        <!-- Product 1 -->
+        <div class="col-lg-4 col-md-6">
+          <div class="card product-card">
+            <div class="position-relative">
+              <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1035&q=80" class="card-img-top product-img" alt="Varsi Leather Bag">
+              <span class="product-badge badge-red">-25%</span>
+              <div class="product-actions">
+                <button class="action-btn"><i class="fas fa-eye"></i></button>
+                <button class="action-btn"><i class="fas fa-shopping-cart"></i></button>
+                <button class="action-btn"><i class="fas fa-heart"></i></button>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Varsi Leather Bag</h5>
+              <div class="product-price">
+                <span>£48.75</span>
+                <span class="old-price">£65.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product 2 -->
+        <div class="col-lg-4 col-md-6">
+          <div class="card product-card">
+            <div class="position-relative">
+              <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80" class="card-img-top product-img" alt="Fit Twill Shirt for Woman">
+              <span class="product-badge badge-green">New</span>
+              <div class="product-actions">
+                <button class="action-btn"><i class="fas fa-eye"></i></button>
+                <button class="action-btn"><i class="fas fa-shopping-cart"></i></button>
+                <button class="action-btn"><i class="fas fa-heart"></i></button>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Fit Twill Shirt for Woman</h5>
+              <div class="product-price">
+                <span>£62.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product 3 -->
+        <div class="col-lg-4 col-md-6">
+          <div class="card product-card">
+            <div class="position-relative">
+              <img src="https://images.unsplash.com/photo-1605812860427-4024433a70fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1035&q=80" class="card-img-top product-img" alt="Grand Atlantic Chukka Boots">
+              <div class="product-actions">
+                <button class="action-btn"><i class="fas fa-eye"></i></button>
+                <button class="action-btn"><i class="fas fa-shopping-cart"></i></button>
+                <button class="action-btn"><i class="fas fa-heart"></i></button>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Grand Atlantic Chukka Boots</h5>
+              <div class="product-price">
+                <span>£32.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-5">
+        <button class="btn btn-outline-primary">View All Products</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <section class="blog-section">
+    <div class="container">
+      <h2 class="text-center section-title">Latest Fashion News</h2>
+      
+      <div class="row">
+        <!-- Blog 1 -->
+        <div class="col-lg-4 col-md-6">
+          <div class="card blog-card">
+            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="card-img-top blog-img" alt="Worthy Cyber Monday Fashion From Casmart">
+            <div class="card-body">
+              <div class="blog-meta">
+                <span><i class="fas fa-folder"></i> Fashion</span>
+                <span class="ms-3"><i class="fas fa-clock"></i> 31 Mar 2021</span>
+              </div>
+              <h5 class="blog-title">Worthy Cyber Monday Fashion From Casmart</h5>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Blog 2 -->
+        <div class="col-lg-4 col-md-6">
+          <div class="card blog-card">
+            <img src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="card-img-top blog-img" alt="Holiday Home Decoration">
+            <div class="card-body">
+              <div class="blog-meta">
+                <span><i class="fas fa-folder"></i> Fashion</span>
+                <span class="ms-3"><i class="fas fa-clock"></i> 31 Mar 2021</span>
+              </div>
+              <h5 class="blog-title">Holiday Home Decoration I've Recently Ordered</h5>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Blog 3 -->
+        <div class="col-lg-4 col-md-6">
+          <div class="card blog-card">
+            <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="card-img-top blog-img" alt="Unique Ideas for Fashion">
+            <div class="card-body">
+              <div class="blog-meta">
+                <span><i class="fas fa-folder"></i> Fashion</span>
+                <span class="ms-3"><i class="fas fa-clock"></i> 31 Mar 2021</span>
+              </div>
+              <h5 class="blog-title">Unique Ideas for Fashion You Haven't Heard Yet</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="newsletter-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h2 class="mb-3">Subscribe Newsletter</h2>
+          <p class="mb-4">Enter your email below to be the first to know about new collections and product launches.</p>
+          
+          <form class="newsletter-form">
+            <div class="input-group mb-3">
+              <input type="email" class="form-control newsletter-input" placeholder="Enter your email">
+              <button class="btn btn-light" type="submit">Subscribe</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4">
+          <h4 class="footer-title">About Casmart</h4>
+          <p class="mb-3">Casmart is a fashion theme for presents a complete wardrobe of uniquely crafted Ethnic Wear, Casuals, Edgy Denims, & Accessories inspired from the most contemporary.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
+          </div>
+        </div>
+        
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h4 class="footer-title">Information</h4>
+          <div class="footer-links">
+            <a href="#">About Company</a>
+            <a href="#">Payment Type</a>
+            <a href="#">Awards Winning</a>
+            <a href="#">World Media Partner</a>
+            <a href="#">Become an Agent</a>
+            <a href="#">Refund Policy</a>
+          </div>
+        </div>
+        
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h4 class="footer-title">Category</h4>
+          <div class="footer-links">
+            <a href="#">Handbags & Wallets</a>
+            <a href="#">Women's Clothing</a>
+            <a href="#">Plus Sizes</a>
+            <a href="#">Complete Your Look</a>
+            <a href="#">Baby Corner</a>
+            <a href="#">Man & Woman Shoe</a>
+          </div>
+        </div>
+        
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h4 class="footer-title">Help & Support</h4>
+          <div class="footer-links">
+            <a href="#">Dealers & Agents</a>
+            <a href="#">FAQ Information</a>
+            <a href="#">Return Policy</a>
+            <a href="#">Shipping & Delivery</a>
+            <a href="#">Order Tracking</a>
+            <a href="#">List of Shops</a>
+          </div>
+        </div>
+        
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h4 class="footer-title">We Support</h4>
+          <img src="https://via.placeholder.com/200x30/ffffff/6c757d?text=Payment+Methods" alt="Payment Methods" class="payment-img">
+        </div>
+      </div>
+      
+      <div class="footer-bottom pt-4 mt-4">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <p>&copy; 2023 Casmart. All Rights Reserved</p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <a href="#" class="text-light me-3">Privacy Policy</a>
+            <a href="#" class="text-light me-3">Terms & Conditions</a>
+            <a href="#" class="text-light">Sitemap</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Custom JavaScript -->
+  <script>
+    // Filter buttons functionality
+    document.querySelectorAll('.filter-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        // Remove active class from all buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        
+        // Add active class to clicked button
+        this.classList.add('active');
+        
+        // In a real application, you would filter products here
+        // For this example, we'll just show an alert
+        alert(`Showing ${this.textContent} products`);
+      });
+    });
+    
+    // Add to cart functionality
+    document.querySelectorAll('.action-btn .fa-shopping-cart').forEach(icon => {
+      icon.addEventListener('click', function(e) {
+        e.preventDefault();
+        const productCard = this.closest('.product-card');
+        const productName = productCard.querySelector('.card-title').textContent;
+        
+        // Show confirmation message
+        alert(`${productName} added to cart!`);
+        
+        // Update cart count (in a real app, this would be more sophisticated)
+        const cartBadge = document.querySelector('.btn-badge:not(.green)');
+        let count = parseInt(cartBadge.textContent);
+        cartBadge.textContent = count + 1;
+      });
+    });
+    
+    // Add to wishlist functionality
+    document.querySelectorAll('.action-btn .fa-heart').forEach(icon => {
+      icon.addEventListener('click', function(e) {
+        e.preventDefault();
+        const productCard = this.closest('.product-card');
+        const productName = productCard.querySelector('.card-title').textContent;
+        
+        // Toggle heart color
+        this.classList.toggle('text-danger');
+        
+        // Show confirmation message
+        if (this.classList.contains('text-danger')) {
+          alert(`${productName} added to wishlist!`);
+          
+          // Update wishlist count
+          const wishlistBadge = document.querySelector('.btn-badge.green');
+          let count = parseInt(wishlistBadge.textContent);
+          wishlistBadge.textContent = count + 1;
+        } else {
+          alert(`${productName} removed from wishlist!`);
+          
+          // Update wishlist count
+          const wishlistBadge = document.querySelector('.btn-badge.green');
+          let count = parseInt(wishlistBadge.textContent);
+          wishlistBadge.textContent = Math.max(0, count - 1);
+        }
+      });
+    });
+    
+    // Newsletter form submission
+    document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = this.querySelector('input[type="email"]').value;
+      alert(`Thank you for subscribing with ${email}!`);
+      this.reset();
+    });
+    
+    // Animation on scroll
+    function animateOnScroll() {
+      const elements = document.querySelectorAll('.fade-in-up');
+      
+      elements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (elementTop < windowHeight - 100) {
+          element.style.opacity = '1';
+          element.style.transform = 'translateY(0)';
+        }
+      });
+    }
+    
+    // Initial call to check elements in viewport
+    animateOnScroll();
+    
+    // Listen for scroll events
+    window.addEventListener('scroll', animateOnScroll);
+  </script>
+</body>
+</html>
